@@ -1,5 +1,11 @@
 #自定义直连节点
+#IP-CIDR,17.0.0.0/8,no-resolve
+#DOMAIN,apple.comscoreresearch.com
+
 DOMAIN-KEYWORD,tailscale
 DOMAIN-KEYWORD,zerotier
 DOMAIN-KEYWORD,zouyq
+DOMAIN-SUFFIX,panda-in.ts.net
+
+
 
