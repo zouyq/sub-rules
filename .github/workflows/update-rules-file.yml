@@ -47,6 +47,7 @@ jobs:
         with:
           repository: zouyq/heroku-subconverter
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
       - name: Modifiy the specific files using scripts
         run: sed -i  "s/#### update at.*/#### update at $(date +'%Y-%m-%dT%H:%M:%S')/" ACL4SSR.ini
       - name: Commit and push changes
