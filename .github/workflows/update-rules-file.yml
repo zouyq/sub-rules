@@ -15,7 +15,8 @@ env:
   PROXY_URL: https://raw.githubusercontent.com/zouyq/sub-rules/main/PROXY.list
   DIRECT_NAME: ruleset=🙈 自定代理,
   PROXY_NAME: ruleset=🙉 自定直连,
-
+  DIRECT_GROUP: custom_proxy_group=🙉 自定直连`select`[]DIRECT`[]🚀 节点选择`[]♻️ 自动选择
+  PROXY_GROUP: custom_proxy_group=🙈 自定代理`select`[]🚀 节点选择`[]♻️ 自动选择`[]🎯 全球直连`.*
 
 jobs:
   stale:
@@ -28,9 +29,12 @@ jobs:
       - name: Modifiy the specific files using scripts
         run: |
           wget -N ${RULES_URL} -O ACL4SSR.ini
-          tac ACL4SSR.ini | awk '/ruleset/ && !seen{print "'"$DIRECT_NAME$DIRECT_URL"'"; seen++} 1' | tac > ACL4SSR.ini
-          tac ACL4SSR.ini | awk '/ruleset/ && !seen{print "'"$PROXY_NAME$PROXY_URL"'"; seen++} 1' | tac > ACL4SSR.ini
-          echo "update at $(date +'%Y-%m-%dT%H:%M:%S')" >> ACL4SSR.ini
+          tac ACL4SSR.ini | awk '/ruleset/ && !seen{print "'"$DIRECT_NAME$DIRECT_URL"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
+          tac ACL4SSR.ini | awk '/ruleset/ && !seen{print "'"$PROXY_NAME$PROXY_URL"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
+          tac ACL4SSR.ini | awk '/custom_proxy_group/ && !seen{print "'"$DIRECT_GROUP"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
+          tac ACL4SSR.ini | awk '/custom_proxy_group/ && !seen{print "'"PROXY_GROUP"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
+          echo ";update at $(date +'%Y-%m-%dT%H:%M:%S')" >> ACL4SSR.ini
+          rm -rf temp
       - name: Commit and push changes
         run: |
           git config --global user.name ${{ github.actor }}
