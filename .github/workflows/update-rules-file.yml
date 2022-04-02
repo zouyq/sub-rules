@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
 
 env:
   RULES_URL: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini
