@@ -34,13 +34,13 @@ jobs:
           tac ACL4SSR.ini | awk '/ruleset/ && !seen{print "'"$PROXY_NAME$PROXY_URL"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
           tac ACL4SSR.ini | awk '/custom_proxy_group/ && !seen{print "'"$DIRECT_GROUP"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
           tac ACL4SSR.ini | awk '/custom_proxy_group/ && !seen{print "'"$PROXY_GROUP"'"; seen++} 1' | tac > temp && cat temp > ACL4SSR.ini
-          echo ";update at $(date +'%Y-%m-%dT%H:%M:%S')" >> ACL4SSR.ini
+          echo ";update at $(date +'%Y-%m-%d %H:%M:%S')" >> ACL4SSR.ini
           rm -rf temp
       - name: Commit and push changes
         run: |
           git config --global user.name ${{ github.actor }}
           git add -A
-          git commit -m "update at $(date +'%Y-%m-%dT%H:%M:%S')"
+          git commit -m "update at $(date +'%Y-%m-%d %H:%M:%S')"
           git push
   update_sub_converter:
     name: Modifiy repository files
@@ -62,5 +62,5 @@ jobs:
         run: |
           git config --global user.name ${{ github.actor }}
           git add -A
-          git commit -m "update at $(date +'%Y-%m-%dT%H:%M:%S')"
+          git commit -m "update at $(date +'%Y-%m-%d %H:%M:%S')"
           git push
