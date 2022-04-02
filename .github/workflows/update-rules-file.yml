@@ -49,7 +49,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           ref: main
       - name: Modifiy the specific files using scripts
-        run: sed -i  "s/#### update at.*/#### update at $(date +'%Y-%m-%dT%H:%M:%S')/" ACL4SSR.ini
+        run: sed -i  "s/#### update at.*/#### update at $(date +'%Y-%m-%dT%H:%M:%S')/" README.md
       - name: Commit and push changes
         run: |
           git config --global user.name ${{ github.actor }}
